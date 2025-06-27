@@ -1,73 +1,312 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>가가와 태희</title>
-  <style>
-    body { font-family: 'Pretendard', Arial, sans-serif; background: #f6f6f6; margin: 0; }
-    header { background: #3b82f6; color: #fff; padding: 20px 40px; }
-    nav { background: #2563eb; color: #fff; padding: 10px 40px; }
-    nav a { color: #fff; margin-right: 20px; text-decoration: none; cursor: pointer;}
-    main { padding: 30px 40px; background: #fff; min-height: 400px; }
-    footer { background: #3b82f6; color: #fff; padding: 20px 40px; text-align: center; }
-    .news-card { background: #f1f5f9; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 16px; }
-    .news-title { margin: 0 0 8px 0; font-size: 1.2em; }
-    .news-content { margin: 0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 뉴스: 다양한 소식</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .article-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 850px;
+            margin: 2rem auto;
+            line-height: 1.8;
+        }
+        .article-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+        }
+        .article-header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+        .article-section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+        .article-section:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+        .article-section h2 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a202c;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #e0e7ff;
+            padding-bottom: 0.5rem;
+        }
+        .article-section p {
+            line-height: 1.7;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+        .article-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .quiz-option {
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            text-align: left;
+            width: 100%;
+            border: 1px solid #c7d2fe;
+            display: block; /* Ensure it takes full width */
+        }
+        .quiz-option:hover {
+            background-color: #c7d2fe;
+        }
+        .puzzle-input {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .action-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        .action-button:hover {
+            background-color: #4338ca;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>가가와 태희</h1>
-  </header>
-  <nav>
-    <a onclick="showPage('home')">홈</a>
-    <a onclick="showPage('realtime')">실시간 뉴스</a>
-    <a onclick="showPage('popular')">인기 기사</a>
-  </nav>
-  <main id="main-content">
-    <div class="news-card">
-      <h2 class="news-title">첫 번째 기사 제목</h2>
-      <p class="news-content">여기에 첫 번째 뉴스 내용이 들어갑니다.</p>
+    <div class="article-container">
+        <header class="article-header">
+            <h1>세상을 바꾸는 작은 이야기들</h1>
+            <p>다양한 시각으로 읽는 최신 소식과 흥미로운 정보</p>
+            <p class="text-sm text-gray-500 mt-2">작성일: 2025년 6월 27일</p>
+        </header>
+
+
+        <!-- Article Section: World Travel -->
+        <div id="article-section-travel" class="article-section">
+            <h2>🌍 세계 여행: 숨겨진 보석을 찾아서</h2>
+            <img src="https://placehold.co/800x400/E0E7FF/4F46E5?text=아름다운+해변" alt="아름다운 해변 사진">
+            <p>여행은 우리에게 새로운 세상을 보여주고, 잊을 수 없는 경험을 선사합니다. 이번 기사에서는 전 세계의 잘 알려지지 않은 아름다운 여행지들을 소개합니다. 북아프리카의 신비로운 사막부터 동남아시아의 고요한 섬들까지, 당신의 다음 모험을 위한 영감을 얻어가세요.</p>
+            <p>특히 유럽의 작은 마을들은 고유한 문화와 따뜻한 사람들을 만날 수 있는 기회를 제공합니다. 복잡한 도시를 벗어나 진정한 휴식을 경험하고 싶다면, 이 작은 마을들이 최적의 선택이 될 것입니다.</p>
+        </div>
+
+
+        <!-- Article Section: Quiz -->
+        <div id="article-section-quiz" class="article-section">
+            <h2>💡 재미있는 지식 퀴즈: 당신은 얼마나 알고 있나요?</h2>
+            <p>일상 속 흥미로운 상식을 알아보는 시간입니다. 다음 질문을 읽고 정답을 선택해 보세요!</p>
+            <p class="mb-4 font-semibold text-lg">Q. 세계에서 가장 큰 대륙은 어디일까요?</p>
+            <button class="quiz-option" data-answer="asia">아시아</button>
+            <button class="quiz-option" data-answer="africa">아프리카</button>
+            <button class="quiz-option" data-answer="europe">유럽</button>
+            <button class="quiz-option" data-answer="north_america">북아메리카</button>
+            <p id="quizResult" class="mt-4 font-semibold text-indigo-700"></p>
+        </div>
+
+
+        <!-- Article Section: Sustainable Living -->
+        <div id="article-section-sustainable" class="article-section">
+            <h2>🌱 지속 가능한 생활: 작은 실천이 만드는 큰 변화</h2>
+            <p>환경 보호와 지속 가능한 미래를 위한 노력은 더 이상 선택이 아닌 필수입니다. 우리의 일상에서 쉽게 실천할 수 있는 방법들을 통해 지구를 지키는 데 동참할 수 있습니다.</p>
+            <ul class="list-disc list-inside mt-4 mb-4 text-gray-700">
+                <li><strong>에너지 절약:</strong> 불필요한 전등 끄기, 절전형 가전제품 사용.</li>
+                <li><strong>자원 재활용:</strong> 올바른 분리수거, 재활용 가능한 제품 선택.</li>
+                <li><strong>친환경 이동:</strong> 대중교통 이용, 자전거 타기, 걷기 생활화.</li>
+                <li><strong>일회용품 줄이기:</strong> 개인 컵, 장바구니 사용 습관화.</li>
+            </ul>
+            <p>아래 표는 각 실천 항목이 환경에 미치는 긍정적인 영향을 보여줍니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>실천 항목</th>
+                        <th>기대 효과</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>물 절약</td>
+                        <td>수자원 보전, 에너지 절감</td>
+                    </tr>
+                    <tr>
+                        <td>음식물 쓰레기 줄이기</td>
+                        <td>메탄가스 발생 감소, 자원 낭비 방지</td>
+                    </tr>
+                    <tr>
+                        <td>플라스틱 사용 감소</td>
+                        <td>해양 생태계 보호, 토양 오염 방지</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="text-sm text-gray-500 mt-4">이러한 작은 노력들이 모여 더 나은 세상을 만들 수 있습니다.</p>
+        </div>
+
+
+        <!-- Article Section: More Info / Call to Action -->
+        <div id="article-section-moreinfo" class="article-section text-center">
+            <h2>✨ 더 깊이 있는 정보가 필요하신가요?</h2>
+            <p>저희 웹사이트에는 이 외에도 다양한 분야의 유익한 기사들이 준비되어 있습니다. 아래 버튼을 클릭하여 더 많은 기사를 탐색해보세요!</p>
+            <button id="viewMoreArticlesButton" class="action-button">다른 기사 보러가기</button>
+        </div>
+
+
+        <!-- Article Section: Like Button -->
+        <div id="article-section-like" class="article-section text-center">
+            <h2>👍 이 기사가 유익했다면 '좋아요'를 눌러주세요!</h2>
+            <p>여러분의 작은 관심이 더 좋은 콘텐츠를 만드는 데 큰 힘이 됩니다. 이 기사에 대한 여러분의 반응을 알려주세요!</p>
+            <button id="articleLikeButton" class="action-button">💖 좋아요!</button>
+            <p id="likeCountDisplay" class="mt-2 text-sm text-gray-500">0명이 이 기사를 좋아합니다.</p>
+        </div>
+
+
+        <!-- Article Section: Puzzle -->
+        <div id="article-section-puzzle" class="article-section">
+            <h2>🧩 오늘의 브레인 티저: 단어 맞추기 퍼즐</h2>
+            <p>잠깐 쉬어가면서 머리를 식혀볼까요? 다음 빈칸에 들어갈 알맞은 두 글자 한글 단어는 무엇일까요?</p>
+            <p class="text-2xl font-bold mt-4 mb-2 text-center">"하_늘"</p>
+            <input type="text" id="puzzleAnswerInput" class="puzzle-input text-center" placeholder="정답을 입력하세요">
+            <button id="puzzleCheckButton" class="action-button block mx-auto">정답 확인</button>
+            <p id="puzzleResultDisplay" class="mt-2 font-semibold text-center"></p>
+        </div>
+
+
+        <footer class="footer-note">
+            <p>&copy; 2025 오늘의 뉴스. 모든 권리 보유.</p>
+        </footer>
     </div>
-    <div class="news-card">
-      <h2 class="news-title">두 번째 기사 제목</h2>
-      <p class="news-content">두 번째 뉴스도 뭔가 중요한 내용이겠죠?</p>
-    </div>
-  </main>
-  <footer>
-    &copy; 2025 가가와 태희
-  </footer>
-  <script>
-    function showPage(page) {
-      const main = document.getElementById('main-content');
-      if (page === 'home') {
-        main.innerHTML = `
-          <div class="news-card">
-            <h2 class="news-title">첫 번째 기사 제목</h2>
-            <p class="news-content">여기에 첫 번째 뉴스 내용이 들어갑니다.</p>
-          </div>
-          <div class="news-card">
-            <h2 class="news-title">두 번째 기사 제목</h2>
-            <p class="news-content">두 번째 뉴스도 뭔가 중요한 내용이겠죠?</p>
-          </div>
-        `;
-      } else if (page === 'realtime') {
-        main.innerHTML = `
-          <div class="news-card">
-            <h2 class="news-title">실시간 뉴스</h2>
-            <p class="news-content">여기는 실시간으로 들어오는 뉴스를 보여줄 공간입니다.</p>
-          </div>
-        `;
-      } else if (page === 'popular') {
-        main.innerHTML = `
-          <div class="news-card">
-            <h2 class="news-title">인기 기사</h2>
-            <p class="news-content">여기는 사람들이 가장 많이 본 인기 기사 모음입니다.</p>
-          </div>
-        `;
-      }
-    }
-  </script>
+
+
+    <script>
+        // Quiz functionality
+        document.querySelectorAll('#article-section-quiz .quiz-option').forEach(button => {
+            button.addEventListener('click', function() {
+                const answer = this.dataset.answer;
+                const quizResult = document.getElementById('quizResult');
+                if (answer === 'asia') {
+                    quizResult.textContent = '정답입니다! 아시아가 가장 큰 대륙이죠. 🎉';
+                    quizResult.style.color = '#10B981'; // Green color for correct
+                } else {
+                    quizResult.textContent = '아쉽지만 오답입니다. 정답은 아시아입니다.';
+                    quizResult.style.color = '#EF4444'; // Red color for incorrect
+                }
+                // Disable all quiz options after one is selected
+                document.querySelectorAll('#article-section-quiz .quiz-option').forEach(btn => btn.disabled = true);
+            });
+        });
+
+
+        // Like button functionality
+        let likeCount = 0;
+        const articleLikeButton = document.getElementById('articleLikeButton');
+        const likeCountDisplay = document.getElementById('likeCountDisplay');
+
+
+        if (articleLikeButton && likeCountDisplay) {
+            articleLikeButton.addEventListener('click', function() {
+                likeCount++;
+                likeCountDisplay.textContent = `${likeCount}명이 이 기사를 좋아합니다.`;
+            });
+        }
+
+
+        // Puzzle functionality
+        const puzzleAnswerInput = document.getElementById('puzzleAnswerInput');
+        const puzzleCheckButton = document.getElementById('puzzleCheckButton');
+        const puzzleResultDisplay = document.getElementById('puzzleResultDisplay');
+
+
+        if (puzzleCheckButton && puzzleAnswerInput && puzzleResultDisplay) {
+            puzzleCheckButton.addEventListener('click', function() {
+                const userAnswer = puzzleAnswerInput.value.trim();
+                if (userAnswer === '하늘') {
+                    puzzleResultDisplay.textContent = '정답입니다! 🌟';
+                    puzzleResultDisplay.style.color = '#10B981'; // Green color for correct
+                } else {
+                    puzzleResultDisplay.textContent = '다시 생각해 보세요. 오답입니다.';
+                    puzzleResultDisplay.style.color = '#EF4444'; // Red color for incorrect
+                }
+            });
+        }
+
+
+        // '다른 기사 보러가기' button - does nothing for now as it's a single page
+        const viewMoreArticlesButton = document.getElementById('viewMoreArticlesButton');
+        if (viewMoreArticlesButton) {
+            viewMoreArticlesButton.addEventListener('click', function() {
+                alert('이것은 데모 페이지이므로 더 많은 기사로 이동하지 않습니다! 😅');
+            });
+        }
+    </script>
 </body>
 </html>
