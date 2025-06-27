@@ -8,7 +8,7 @@
     body { font-family: 'Pretendard', Arial, sans-serif; background: #f6f6f6; margin: 0; }
     header { background: #3b82f6; color: #fff; padding: 20px 40px; }
     nav { background: #2563eb; color: #fff; padding: 10px 40px; }
-    nav a { color: #fff; margin-right: 20px; text-decoration: none; }
+    nav a { color: #fff; margin-right: 20px; text-decoration: none; cursor: pointer;}
     main { padding: 30px 40px; background: #fff; min-height: 400px; }
     footer { background: #3b82f6; color: #fff; padding: 20px 40px; text-align: center; }
     .news-card { background: #f1f5f9; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 16px; }
@@ -21,12 +21,11 @@
     <h1>가가와 태희의 뉴스</h1>
   </header>
   <nav>
-    <a href="#">홈</a>
-    <a href="#">실시간 뉴스</a>
-    <a href="#">인기 기사</a>
-    <a href="#">로그아웃</a>
+    <a onclick="showPage('home')">홈</a>
+    <a onclick="showPage('realtime')">실시간 뉴스</a>
+    <a onclick="showPage('popular')">인기 기사</a>
   </nav>
-  <main>
+  <main id="main-content">
     <div class="news-card">
       <h2 class="news-title">첫 번째 기사 제목</h2>
       <p class="news-content">여기에 첫 번째 뉴스 내용이 들어갑니다.</p>
@@ -39,5 +38,36 @@
   <footer>
     &copy; 2025 가가와 태희
   </footer>
+  <script>
+    function showPage(page) {
+      const main = document.getElementById('main-content');
+      if (page === 'home') {
+        main.innerHTML = `
+          <div class="news-card">
+            <h2 class="news-title">첫 번째 기사 제목</h2>
+            <p class="news-content">여기에 첫 번째 뉴스 내용이 들어갑니다.</p>
+          </div>
+          <div class="news-card">
+            <h2 class="news-title">두 번째 기사 제목</h2>
+            <p class="news-content">두 번째 뉴스도 뭔가 중요한 내용이겠죠?</p>
+          </div>
+        `;
+      } else if (page === 'realtime') {
+        main.innerHTML = `
+          <div class="news-card">
+            <h2 class="news-title">실시간 뉴스</h2>
+            <p class="news-content">여기는 실시간으로 들어오는 뉴스를 보여줄 공간입니다.</p>
+          </div>
+        `;
+      } else if (page === 'popular') {
+        main.innerHTML = `
+          <div class="news-card">
+            <h2 class="news-title">인기 기사</h2>
+            <p class="news-content">여기는 사람들이 가장 많이 본 인기 기사 모음입니다.</p>
+          </div>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
