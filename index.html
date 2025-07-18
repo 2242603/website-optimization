@@ -242,8 +242,8 @@
         <!-- Article Section: Puzzle -->
         <div id="article-section-puzzle" class="article-section">
             <h2>🧩 오늘의 브레인 티저: 단어 맞추기 퍼즐</h2>
-            <p>잠깐 쉬어가면서 머리를 식혀볼까요? 다음 빈칸에 들어갈 알맞은 두 글자 한글 단어는 무엇일까요?</p>
-            <p class="text-2xl font-bold mt-4 mb-2 text-center">"하_늘"</p>
+            <p>잠깐 쉬어가면서 머리를 식혀볼까요? 세계에서 가장 위험한 동물 2위는?</p>
+            <p class="text-2xl font-bold mt-4 mb-2 text-center">"ㄱㄹ"</p>
             <input type="text" id="puzzleAnswerInput" class="puzzle-input text-center" placeholder="정답을 입력하세요">
             <button id="puzzleCheckButton" class="action-button block mx-auto">정답 확인</button>
             <p id="puzzleResultDisplay" class="mt-2 font-semibold text-center"></p>
@@ -298,7 +298,7 @@
         if (puzzleCheckButton && puzzleAnswerInput && puzzleResultDisplay) {
             puzzleCheckButton.addEventListener('click', function() {
                 const userAnswer = puzzleAnswerInput.value.trim();
-                if (userAnswer === '하늘') {
+                if (userAnswer === '기린') {
                     puzzleResultDisplay.textContent = '정답입니다! 🌟';
                     puzzleResultDisplay.style.color = '#10B981'; // Green color for correct
                 } else {
